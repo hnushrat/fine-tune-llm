@@ -24,7 +24,7 @@ torch.manual_seed(seed)
 DATASET_NAME = "virattt/financial-qa-10K"
 MODEL_NAME = "meta-llama/Meta-Llama-3-8B-Instruct"
 SAVE_NAME = 'Instruct-Fine-tuned'
-PAD_TOKEN = "|pad|>"
+PAD_TOKEN = "<|pad|>"
 
 df = prepare_data(name = DATASET_NAME, tokenizer = MODEL_NAME).get_data()
 
@@ -40,7 +40,7 @@ test.to_json('test.json', orient = 'records', lines = True)
 dataset = load_dataset('json', data_files = {'train' : 'train.json', 'val' : 'val.json', 'test' : 'test.json'})
 
 # view a sample from train
-print(f"**Sample from the train set**\n{dataset['train'][0]['text']}")
+print(f"\n\n**Sample from the train set**\n\n{dataset['train'][0]['text']}")
 
 model = build_model(name = MODEL_NAME, pad_token = PAD_TOKEN).get_lora_model(rank = 32, alpha = 16, dropout = 0.03)
 
